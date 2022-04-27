@@ -35,4 +35,8 @@ int main(int argc, char **argv)
   printf("nombre chromatique graphe = %d\n", nc);
 
   ecrire_graphe_colorie(g);
+
+  algo_dijkstra(g, 0);
+
+  ecrire_graphe_dijkstra(g);
 }

@@ -12,6 +12,7 @@ typedef struct s
   parc_t     liste_arcs ; // arcs sortants du sommet
   struct s   *sommet_suivant ; // sommet suivant dans le graphe
   int        couleur ; // couleur du sommet
+  int        distance ; // distance du sommet
 } sommet_t, *psommet_t ;
 
 /*
@@ -47,6 +48,8 @@ void lire_graphe (char * file_name, pgraphe_t *g) ;
 void ecrire_graphe (psommet_t p) ;
 
 void ecrire_graphe_colorie (psommet_t p) ;
+
+void ecrire_graphe_dijkstra (psommet_t p) ;
 
 
 
