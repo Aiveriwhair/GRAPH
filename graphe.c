@@ -1,3 +1,14 @@
+#define DEBUG
+
+#ifdef DEBUG
+#define DEBUG_PRINT(x) printf x
+#else
+#define DEBUG_PRINT(x) \
+  do                   \
+  {                    \
+  } while (0)
+#endif
+
 /*
   Structures de type graphe
   Structures de donnees de type liste
@@ -216,17 +227,39 @@ void afficher_graphe_largeur(pgraphe_t g, int r)
   return;
 }
 
+
+void explorer(pgraphe_t g, int r)
+{
+  psommet_t p = chercher_sommet(g, r);
+  
+  if (p->marqueur == 0){
+  printf("Sommet %d#  ", p->label);
+  p->marqueur = 1;
+  }
+  else {
+    return;
+  }
+
+  parc_t arcs = p->liste_arcs;
+
+  while(arcs  != NULL && arcs->dest != NULL){
+    explorer(g, arcs->dest->label);
+    arcs = arcs->arc_suivant;
+  }
+}
+
 void afficher_graphe_profondeur(pgraphe_t g, int r)
 {
-  /*
-    afficher les sommets du graphe avec un parcours en profondeur
-  */
+  init_marqueur_sommet(g);
+  explorer(g,r);
+  printf("\n");
 
   return;
 }
 
 void algo_dijkstra(pgraphe_t g, int r)
 {
+  DEBUG_PRINT(("-- Algorithme de Dijkstra --\n"));
   /*
     algorithme de dijkstra
     des variables ou des chanmps doivent etre ajoutees dans les structures.
@@ -237,7 +270,7 @@ void algo_dijkstra(pgraphe_t g, int r)
   int existe = 0;
   while (p != NULL)
   {
-    p->distance = INT_MAX;
+    p->distance = INT_MAX - 1;
     if (p->label == r)
     {
       p->distance = 0;
@@ -247,25 +280,27 @@ void algo_dijkstra(pgraphe_t g, int r)
   }
   if (!existe)
   {
-    printf("Le sommet %d n'existe pas\n", r);
+    DEBUG_PRINT(("Le sommet %d n'existe pas\n", r));
     return;
   }
   p = g;
   while (p != NULL)
   {
+    DEBUG_PRINT(("\tCalculating routes from : %d\n", p->label));
     P[n] = p;
     parc_t a = p->liste_arcs;
     while (a != NULL)
     {
       if (a->dest->distance > a->poids + p->distance)
       {
-        printf("Assigned %d to %d\n", a->poids + p->distance, a->dest->label);
+        DEBUG_PRINT(("\t\tAssigned %d to %d\n", a->poids + p->distance, a->dest->label));
         a->dest->distance = a->poids + p->distance;
       }
       a = a->arc_suivant;
     }
     p = p->sommet_suivant;
   }
+  DEBUG_PRINT(("-- Fin de l'algorithme de Dijkstra --\n"));
   return;
 }
 
