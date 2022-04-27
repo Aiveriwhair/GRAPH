@@ -61,3 +61,7 @@ void afficher_graphe_profondeur (pgraphe_t g, int r) ;
 void afficher_graphe_largeur (pgraphe_t g, int r) ;
 
 void algo_dijkstra (pgraphe_t g, int r) ;
+
+void init_marqueur_sommet(pgraphe_t g);
+
+int nombre_voisins(psommet_t s);

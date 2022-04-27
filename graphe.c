@@ -169,20 +169,50 @@ void init_marqueur_sommet(pgraphe_t g)
 
   while (p != NULL)
   {
-    p->marqueur = 0;        // couleur indefinie
+    p->marqueur = 0;        // reset le marqueur
     p = p->sommet_suivant; // passer au sommet suivant dans le graphe
   }
 
   return;
 }
 
+int nombre_voisins(psommet_t s){
+  int res = 0;
+  parc_t l = s->liste_arcs;
+  while (l != NULL)
+  {
+    res++;
+    l = l->arc_suivant;
+  }
+  return res;
+}
+
 void afficher_graphe_largeur(pgraphe_t g, int r)
 {
-  psommet_t source = chercher_sommet(g, r);
+  init_marqueur_sommet(g);
+  psommet_t s = chercher_sommet(g, r);
   pfile_t file = creer_file();
-  enfiler(file, source);
+  enfiler(file, s);
+  s->marqueur = 1;
 
+  while (!file_vide(file))
+  {
+    s = defiler(file);
+    printf(">Sommet %d ", s->label);
 
+    parc_t arc = s->liste_arcs;
+    while (arc != NULL)
+    {
+      psommet_t voisin = arc->dest;
+      if (voisin->marqueur == 0)
+      {
+        enfiler(file, voisin);
+        voisin->marqueur = 1;
+      }
+      arc = arc->arc_suivant;
+    }
+    printf("\n");
+  }
   return;
 }
 
