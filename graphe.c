@@ -197,11 +197,32 @@ void afficher_graphe_largeur(pgraphe_t g, int r)
   return;
 }
 
+
+void explorer(pgraphe_t g, int r)
+{
+  psommet_t p = chercher_sommet(g, r);
+  
+  if (p->marqueur == 0){
+  printf("Sommet %d#  ", p->label);
+  p->marqueur = 1;
+  }
+  else {
+    return;
+  }
+
+  parc_t arcs = p->liste_arcs;
+
+  while(arcs  != NULL && arcs->dest != NULL){
+    explorer(g, arcs->dest->label);
+    arcs = arcs->arc_suivant;
+  }
+}
+
 void afficher_graphe_profondeur(pgraphe_t g, int r)
 {
-  /*
-    afficher les sommets du graphe avec un parcours en profondeur
-  */
+  init_marqueur_sommet(g);
+  explorer(g,r);
+  printf("\n");
 
   return;
 }
