@@ -201,7 +201,41 @@ void algo_dijkstra(pgraphe_t g, int r)
     algorithme de dijkstra
     des variables ou des chanmps doivent etre ajoutees dans les structures.
   */
-
+  psommet_t p = g;
+  psommet_t *P = malloc(sizeof(psommet_t) * nombre_sommets(g));
+  int n = 0;
+  int existe = 0;
+  while (p != NULL)
+  {
+    p->distance = INT_MAX;
+    if (p->label == r)
+    {
+      p->distance = 0;
+      existe = 1;
+    }
+    p = p->sommet_suivant;
+  }
+  if (!existe)
+  {
+    printf("Le sommet %d n'existe pas\n", r);
+    return;
+  }
+  p = g;
+  while (p != NULL)
+  {
+    P[n] = p;
+    parc_t a = p->liste_arcs;
+    while (a != NULL)
+    {
+      if (a->dest->distance > a->poids + p->distance)
+      {
+        printf("Assigned %d to %d\n", a->poids + p->distance, a->dest->label);
+        a->dest->distance = a->poids + p->distance;
+      }
+      a = a->arc_suivant;
+    }
+    p = p->sommet_suivant;
+  }
   return;
 }
 

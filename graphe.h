@@ -49,6 +49,8 @@ void ecrire_graphe (psommet_t p) ;
 
 void ecrire_graphe_colorie (psommet_t p) ;
 
+void ecrire_graphe_dijkstra (psommet_t p) ;
+
 
 
 int colorier_graphe (pgraphe_t g) ;
