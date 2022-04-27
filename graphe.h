@@ -36,6 +36,11 @@ typedef struct a {
 
 typedef psommet_t pgraphe_t ;
 
+typedef struct c {
+  psommet_t sommet_depart; // sommet de depart du chemin
+  parc_t liste_arcs; // liste des arcs du chemin
+} chemin_t, *pchemin_t;
+
 psommet_t chercher_sommet (pgraphe_t g, int label) ;
 
 void ajouter_arc (psommet_t o, psommet_t d, int distance) ;
