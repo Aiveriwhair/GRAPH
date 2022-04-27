@@ -13,6 +13,7 @@ typedef struct s
   struct s   *sommet_suivant ; // sommet suivant dans le graphe
   int        couleur ; // couleur du sommet
   int        marqueur; //booleen marquage
+  int        distance;
 } sommet_t, *psommet_t ;
 
 /*
