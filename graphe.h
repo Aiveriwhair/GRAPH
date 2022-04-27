@@ -1,4 +1,4 @@
-
+#pragma once
 typedef struct a *parc_t ;
 
 /*

@@ -7,7 +7,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
-
+#include "file.h"
+#include "pile.h"
 #include "graphe.h"
 
 psommet_t chercher_sommet(pgraphe_t g, int label)
@@ -164,10 +165,9 @@ int colorier_graphe(pgraphe_t g)
 
 void afficher_graphe_largeur(pgraphe_t g, int r)
 {
-  /*
-    afficher les sommets du graphe avec un parcours en largeur
-  */
-
+  pfile_t file = creer_file();
+  enfiler(file, g);
+  printf("%d\n",file->nbElems);
   return;
 }
 
