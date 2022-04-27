@@ -12,7 +12,8 @@ typedef struct s
   parc_t     liste_arcs ; // arcs sortants du sommet
   struct s   *sommet_suivant ; // sommet suivant dans le graphe
   int        couleur ; // couleur du sommet
-  int        distance ; // distance du sommet
+  int        marqueur; //booleen marquage
+  int        distance;
 } sommet_t, *psommet_t ;
 
 /*

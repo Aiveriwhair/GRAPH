@@ -174,11 +174,26 @@ int colorier_graphe(pgraphe_t g)
   return max_couleur;
 }
 
+void init_marqueur_sommet(pgraphe_t g)
+{
+  psommet_t p = g;
+
+  while (p != NULL)
+  {
+    p->marqueur = 0;        // couleur indefinie
+    p = p->sommet_suivant; // passer au sommet suivant dans le graphe
+  }
+
+  return;
+}
+
 void afficher_graphe_largeur(pgraphe_t g, int r)
 {
+  psommet_t source = chercher_sommet(g, r);
   pfile_t file = creer_file();
-  enfiler(file, g);
-  printf("%d\n",file->nbElems);
+  enfiler(file, source);
+
+
   return;
 }
 
