@@ -200,6 +200,7 @@ int nombre_voisins(psommet_t s){
 
 void afficher_graphe_largeur(pgraphe_t g, int r)
 {
+  printf("-- Affichage du graphe en largeur --\n");
   init_marqueur_sommet(g);
   psommet_t s = chercher_sommet(g, r);
   pfile_t file = creer_file();
