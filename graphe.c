@@ -394,7 +394,8 @@ int regulier(pgraphe_t g)
      g est le ponteur vers le premier sommet du graphe
      renvoie 1 si le graphe est régulier, 0 sinon
   */
-
+  if (degre_minimal_graphe(g) == degre_maximal_graphe(g))
+    return 1;
   return 0;
 }
 
