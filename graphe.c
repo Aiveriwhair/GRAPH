@@ -405,10 +405,49 @@ int regulier(pgraphe_t g)
   return 0;
 }
 
-int elementaire(pgraphe_t g, chemin_t c);
-int simple(pgraphe_t g, chemin_t c);
+int elementaire(pgraphe_t g, chemin_t c){
+  /*
+    1 -> chemin élémentaire :  ne passant pas 2 fois par le meme noeud
+    0 -> sinon 
+  */
+  psommet_t p = g;
+  init_marqueur_sommet(p);
+  c.sommet_depart->marqueur = 1;
+
+  parc_t arcs = c.liste_arcs;
+  while (arcs != NULL)
+  {
+    if (arcs->dest->marqueur == 1)
+    {
+      return 0;
+    }
+    arcs->dest->marqueur = 1;
+    arcs = arcs->arc_suivant;
+  }
+  return 1;
+}
+int simple(pgraphe_t g, chemin_t c){
+
+}
 int eulerien(pgraphe_t g, chemin_t c);
-int hamiltonien(pgraphe_t g, chemin_t c);
+
+int hamiltonien(pgraphe_t g, chemin_t c){
+  init_marqueur_sommet(g);
+  int noeudRencontres = 1;
+  c.sommet_depart->marqueur = 1;
+  psommet_t p = g;
+  parc_t arcs = c.liste_arcs;
+  while (arcs != NULL) {
+    if (arcs->dest->marqueur == 0)
+    {
+      noeudRencontres++;
+      arcs->dest->marqueur = 1;
+    }
+    
+    arcs = arcs->arc_suivant;
+  }
+  return noeudRencontres == nombre_sommets(g) ? 1 : 0;
+}
 int graphe_eulerien(pgraphe_t g);
 int graphe_hamiltonien(pgraphe_t g);
 int excentricite1(pgraphe_t g, psommet_t x, psommet_t y);
