@@ -457,9 +457,15 @@ int elementaire(pgraphe_t g, chemin_t c){
   return 1;
 }
 int simple(pgraphe_t g, chemin_t c){
+  init_marqueur_arc(g);
   parc_t p = c.liste_arcs;
-  while (p != NULL)
-  {
+  while (p != NULL){
+    if (p->marqueur == 1)
+      return 0;
+    p = p->arc_suivant; 
+  }
+  return 1;
+/*  {
     parc_t temp = g->liste_arcs;
     while (temp != NULL)
     {
@@ -473,7 +479,7 @@ int simple(pgraphe_t g, chemin_t c){
     
     p = p->arc_suivant;
   }
-  return 1;
+  return 1;*/
 }
 int eulerien(pgraphe_t g, chemin_t c){
   init_marqueur_arc(g);
