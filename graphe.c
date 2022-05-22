@@ -507,6 +507,26 @@ int hamiltonien(pgraphe_t g, chemin_t c){
 }
 int graphe_eulerien(pgraphe_t g);
 int graphe_hamiltonien(pgraphe_t g);
-int distance(pgraphe_t g, psommet_t x, psommet_t y);
+
+
+int distance(pgraphe_t g, int x, int y){
+  /*
+    Renvoie la distance entre les sommets x et y dadans le graphe g
+  */
+  psommet_t px = chercher_sommet(g, x);
+  if(px == NULL) {
+    DEBUG_PRINT(("Le sommet %d n'existe pas\n", x));
+    return -1;
+  }
+  psommet_t py = chercher_sommet(g, y);
+  if (py == NULL) {
+    DEBUG_PRINT(("Le sommet %d n'existe pas\n", y));
+    return -1;
+  }
+  algo_dijkstra(g, x);
+  return py->distance;
+}
+
+
 int excentricite2(pgraphe_t g, psommet_t n);
 int diametre(pgraphe_t g);

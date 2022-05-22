@@ -97,3 +97,4 @@ int graphe_hamiltonien(pgraphe_t g);
 int excentricite1(pgraphe_t g, psommet_t x, psommet_t y);
 int excentricite2(pgraphe_t g, psommet_t n);
 int diametre(pgraphe_t g);
+int distance(pgraphe_t g, int x, int y);
