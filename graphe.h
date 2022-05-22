@@ -80,3 +80,13 @@ int degre_minimal_graphe(pgraphe_t g);
 int degre_maximal_graphe(pgraphe_t g);
 
 int regulier(pgraphe_t g);
+
+int elementaire(pgraphe_t g, chemin_t c);
+int simple(pgraphe_t g, chemin_t c);
+int eulerien(pgraphe_t g, chemin_t c);
+int hamiltonien(pgraphe_t g, chemin_t c);
+int graphe_eulerien(pgraphe_t g);
+int graphe_hamiltonien(pgraphe_t g);
+int excentricite1(pgraphe_t g, psommet_t x, psommet_t y);
+int excentricite2(pgraphe_t g, psommet_t n);
+int diametre(pgraphe_t g);

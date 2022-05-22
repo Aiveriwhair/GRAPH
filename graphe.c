@@ -399,6 +399,12 @@ int regulier(pgraphe_t g)
   return 0;
 }
 
-/*
-  placer les fonctions de l'examen 2017 juste apres
-*/
+int elementaire(pgraphe_t g, chemin_t c);
+int simple(pgraphe_t g, chemin_t c);
+int eulerien(pgraphe_t g, chemin_t c);
+int hamiltonien(pgraphe_t g, chemin_t c);
+int graphe_eulerien(pgraphe_t g);
+int graphe_hamiltonien(pgraphe_t g);
+int excentricite1(pgraphe_t g, psommet_t x, psommet_t y);
+int excentricite2(pgraphe_t g, psommet_t n);
+int diametre(pgraphe_t g);
