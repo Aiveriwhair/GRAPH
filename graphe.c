@@ -313,8 +313,14 @@ int degre_sortant_sommet(pgraphe_t g, psommet_t s)
     Cette fonction retourne le nombre d'arcs sortants
     du sommet n dans le graphe g
   */
-
-  return 0;
+  psommet_t p = chercher_sommet(g, s);
+  parc_t arcs = p->liste_arcs;
+  int count = 0;
+  while(arcs != NULL){
+    arcs->arc_suivant;
+    count++;
+  }
+  return count;
 }
 
 int degre_entrant_sommet(pgraphe_t g, psommet_t s)
