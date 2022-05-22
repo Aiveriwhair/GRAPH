@@ -348,20 +348,29 @@ int degre_entrant_sommet(pgraphe_t g, psommet_t s)
 
 int degre_maximal_graphe(pgraphe_t g)
 {
-  /*
-    Max des degres des sommets du graphe g
-  */
+  int degmax = 0;
+  psommet_t p = g;
+  while(p != NULL){
+    int degTemp = degre_entrant_sommet(g, p) + degre_sortant_sommet(g, p);
+    if(degTemp > degmax)
+      degmax = degTemp;
+    p = p->sommet_suivant;
+  }
 
-  return 0;
+  return degmax;
 }
 
 int degre_minimal_graphe(pgraphe_t g)
 {
-  /*
-    Min des degres des sommets du graphe g
-  */
-
-  return 0;
+  int degmin = degre_maximal_graphe(g);
+  psommet_t p = g;
+  while(p != NULL){
+    int degTemp = degre_entrant_sommet(g, p) + degre_sortant_sommet(g, p);
+    if(degTemp < degmin)
+      degmin = degTemp;
+    p = p->sommet_suivant;
+  }
+  return degmin;
 }
 
 int independant(pgraphe_t g)

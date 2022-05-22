@@ -74,3 +74,7 @@ int nombre_voisins(psommet_t s);
 int degre_entrant_sommet(pgraphe_t g, psommet_t s);
 
 int degre_sortant_sommet(pgraphe_t g, psommet_t s);
+
+int degre_minimal_graphe(pgraphe_t g);
+
+int degre_maximal_graphe(pgraphe_t g);
