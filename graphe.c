@@ -296,8 +296,6 @@ void algo_dijkstra(pgraphe_t g, int r)
     des variables ou des chanmps doivent etre ajoutees dans les structures.
   */
   psommet_t p = g;
-  psommet_t *P = malloc(sizeof(psommet_t) * nombre_sommets(g));
-  int n = 0;
   int existe = 0;
   while (p != NULL)
   {
@@ -318,7 +316,6 @@ void algo_dijkstra(pgraphe_t g, int r)
   while (p != NULL)
   {
     DEBUG_PRINT(("\tCalculating routes from : %d\n", p->label));
-    P[n] = p;
     parc_t a = p->liste_arcs;
     while (a != NULL)
     {
