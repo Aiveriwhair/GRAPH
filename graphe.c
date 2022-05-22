@@ -103,6 +103,16 @@ int nombre_arcs(pgraphe_t g)
   }
   return nb_arcs;
 }
+int nombre_aretes_chemin(chemin_t c){
+  parc_t p = c.liste_arcs;
+  int n = 0;
+  while (p != NULL)
+  {
+    n++;
+    p = p->arc_suivant;
+  }
+  return n;
+}
 
 void init_couleur_sommet(pgraphe_t g)
 {
@@ -427,7 +437,23 @@ int elementaire(pgraphe_t g, chemin_t c){
   return 1;
 }
 int simple(pgraphe_t g, chemin_t c){
-
+  parc_t p = c.liste_arcs;
+  while (p != NULL)
+  {
+    parc_t temp = p->arc_suivant;
+    while (temp != NULL)
+    {
+      if (temp == p)
+      {
+        return 1;
+      }
+      
+      temp = temp->arc_suivant;
+    }
+    
+    p = p->arc_suivant;
+  }
+  return 0;
 }
 int eulerien(pgraphe_t g, chemin_t c);
 
@@ -443,13 +469,12 @@ int hamiltonien(pgraphe_t g, chemin_t c){
       noeudRencontres++;
       arcs->dest->marqueur = 1;
     }
-    
     arcs = arcs->arc_suivant;
   }
   return noeudRencontres == nombre_sommets(g) ? 1 : 0;
 }
 int graphe_eulerien(pgraphe_t g);
 int graphe_hamiltonien(pgraphe_t g);
-int excentricite1(pgraphe_t g, psommet_t x, psommet_t y);
+int distance(pgraphe_t g, psommet_t x, psommet_t y);
 int excentricite2(pgraphe_t g, psommet_t n);
 int diametre(pgraphe_t g);

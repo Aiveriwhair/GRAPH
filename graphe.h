@@ -37,8 +37,8 @@ typedef struct a {
 typedef psommet_t pgraphe_t ;
 
 typedef struct c {
-  psommet_t sommet_depart; // sommet de depart du chemin
-  parc_t liste_arcs; // liste des arcs du chemin
+  psommet_t       sommet_depart; // sommet de depart du chemin
+  parc_t          liste_arcs; // liste des arcs du chemin
 } chemin_t, *pchemin_t;
 
 psommet_t chercher_sommet (pgraphe_t g, int label) ;
@@ -48,6 +48,8 @@ void ajouter_arc (psommet_t o, psommet_t d, int distance) ;
 int nombre_arcs (pgraphe_t g) ;
 
 int nombre_sommets (pgraphe_t g) ;
+
+int nombre_aretes_chemin(chemin_t c);
 
 void lire_graphe (char * file_name, pgraphe_t *g) ;
 
@@ -80,6 +82,10 @@ int degre_minimal_graphe(pgraphe_t g);
 int degre_maximal_graphe(pgraphe_t g);
 
 int regulier(pgraphe_t g);
+
+int independant(pgraphe_t g);
+
+int complet(pgraphe_t g);
 
 int elementaire(pgraphe_t g, chemin_t c);
 int simple(pgraphe_t g, chemin_t c);
