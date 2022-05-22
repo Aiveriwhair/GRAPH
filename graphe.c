@@ -462,6 +462,7 @@ int simple(pgraphe_t g, chemin_t c){
   while (p != NULL){
     if (p->marqueur == 1)
       return 0;
+    p->marqueur = 1;
     p = p->arc_suivant; 
   }
   return 1;
