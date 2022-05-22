@@ -70,3 +70,7 @@ void algo_dijkstra (pgraphe_t g, int r) ;
 void init_marqueur_sommet(pgraphe_t g);
 
 int nombre_voisins(psommet_t s);
+
+int degre_entrant_sommet(pgraphe_t g, psommet_t s);
+
+int degre_sortant_sommet(pgraphe_t g, psommet_t s);
