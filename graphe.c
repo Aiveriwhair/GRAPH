@@ -199,12 +199,15 @@ void init_marqueur_sommet(pgraphe_t g)
 
 void init_marqueur_arc(pgraphe_t g)
 {
+  //DEBUG_PRINT(("init_marqueur_arc\n"));
   psommet_t p = g;
 
   while (p != NULL)
   {
+    //DEBUG_PRINT(("Marking %d\n", p->label));
     parc_t a = p->liste_arcs;
-    while (a != NULL){    
+    while (a != NULL){
+      //DEBUG_PRINT(("\tMarking %d\n", a->dest->label));
       a->marqueur = 0;
       a = a->arc_suivant; 
     }
@@ -457,12 +460,12 @@ int simple(pgraphe_t g, chemin_t c){
   parc_t p = c.liste_arcs;
   while (p != NULL)
   {
-    parc_t temp = p->arc_suivant;
+    parc_t temp = g->liste_arcs;
     while (temp != NULL)
     {
       if (temp == p)
       {
-        return 1;
+        return 0;
       }
       
       temp = temp->arc_suivant;
@@ -470,7 +473,7 @@ int simple(pgraphe_t g, chemin_t c){
     
     p = p->arc_suivant;
   }
-  return 0;
+  return 1;
 }
 int eulerien(pgraphe_t g, chemin_t c){
   init_marqueur_arc(g);
@@ -505,7 +508,93 @@ int hamiltonien(pgraphe_t g, chemin_t c){
   }
   return noeudRencontres == nombre_sommets(g) ? 1 : 0;
 }
-int graphe_eulerien(pgraphe_t g);
+
+int graphe_eulerien_rec(psommet_t s, pchemin_t c, int n) {
+  /*
+    Cette fonction crée tous les chemins possibles
+    entre le sommet s et tous les autres sommets du graphe
+  */
+  for(int i = 0; i < n; i++) {
+    DEBUG_PRINT(("\t"));
+  }
+  DEBUG_PRINT(("graphe_eulerien_rec(%d)\n", s->label));
+  if (eulerien(s, *c)) {
+    return 1;
+  }
+  for (int i = 0; i < n; i++)
+  {
+    DEBUG_PRINT(("\t"));
+  }
+  DEBUG_PRINT(("Chemin pas eulerien\n"));
+  parc_t arcs = s->liste_arcs;
+  while (arcs != NULL) {
+    if(arcs->dest != s) {
+      parc_t temp = c->liste_arcs;
+      if(temp == NULL) {
+        parc_t arc_temp = malloc(sizeof(parc_t));
+        arc_temp->dest = arcs->dest;
+        arc_temp->arc_suivant = NULL;
+        c->liste_arcs = arc_temp;
+      } else {
+        while (temp->arc_suivant != NULL)
+        {
+          temp = temp->arc_suivant;
+        }
+        parc_t arc_temp = malloc(sizeof(parc_t));
+        arc_temp->dest = arcs->dest;
+        arc_temp->arc_suivant = NULL;
+        temp->arc_suivant = arcs;
+      }
+      for (int i = 0; i < n; i++)
+      {
+        DEBUG_PRINT(("\t"));
+      }
+      DEBUG_PRINT(("Added arc from %d to %d to chemin\n", s->label, arcs->dest->label));
+      if(simple(s, *c)) {
+        for (int i = 0; i < n; i++)
+        {
+          DEBUG_PRINT(("\t"));
+        }
+        DEBUG_PRINT(("Chemin is simple\n"));
+        if(graphe_eulerien_rec(arcs->dest, c, n+1)) {
+          return 1;
+        }
+      } else {
+        for (int i = 0; i < n; i++)
+        {
+          DEBUG_PRINT(("\t"));
+        }
+        DEBUG_PRINT(("Chemin is not simple\n"));
+      }
+      if(temp == NULL) {
+        c->liste_arcs = NULL;
+      } else {
+        temp->arc_suivant = NULL;
+      }
+      //temp->arc_suivant = NULL;
+    }
+    arcs = arcs->arc_suivant;
+  }
+  return 0;
+}
+
+int graphe_eulerien(pgraphe_t g){
+  psommet_t p = g;
+  while (p != NULL) {
+    chemin_t* c = malloc(sizeof(chemin_t));
+    c->sommet_depart = p;
+    parc_t arc = p->liste_arcs;
+    while (arc != NULL) {
+      simple(p, *c);
+      if(graphe_eulerien_rec(p, c, 0)) {
+        return 1;
+      }
+      arc = arc->arc_suivant;
+    }
+    p = p->sommet_suivant;
+  }
+  return 0;
+}
 int graphe_hamiltonien(pgraphe_t g);
 
 
