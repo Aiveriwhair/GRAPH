@@ -298,7 +298,7 @@ void algo_dijkstra(pgraphe_t g, int r)
   int existe = 0;
   while (p != NULL)
   {
-    p->distance = INT_MAX - 1;
+    p->distance = -1;
     if (p->label == r)
     {
       p->distance = 0;
@@ -319,7 +319,7 @@ void algo_dijkstra(pgraphe_t g, int r)
     parc_t a = p->liste_arcs;
     while (a != NULL)
     {
-      if (a->dest->distance > a->poids + p->distance)
+      if (a->dest->distance != 1 || a->dest->distance > a->poids + p->distance)
       {
         DEBUG_PRINT(("\t\tAssigned %d to %d\n", a->poids + p->distance, a->dest->label));
         a->dest->distance = a->poids + p->distance;
@@ -543,4 +543,20 @@ int excentricite(pgraphe_t g, int n){
   }
   return max;
 }
-int diametre(pgraphe_t g);
+
+int diametre(pgraphe_t g) {
+  /*
+    Renvoie la distance maximale entre deux sommets du graphe
+  */
+  int max = 0;
+  psommet_t p = g;
+  while (p != NULL) {
+    int temp = excentricite(g, p->label);
+    printf("Excentricite de %d : %d\n", p->label, temp);
+    if (temp > max) {
+      max = temp;
+    }
+    p = p->sommet_suivant;
+  }
+  return max;
+}
