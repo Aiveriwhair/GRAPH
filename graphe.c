@@ -197,6 +197,23 @@ void init_marqueur_sommet(pgraphe_t g)
   return;
 }
 
+void init_marqueur_arc(pgraphe_t g)
+{
+  psommet_t p = g;
+
+  while (p != NULL)
+  {
+    parc_t a = p->liste_arcs;
+    while (a != NULL){    
+      a->marqueur = 0;
+      a = a->arc_suivant; 
+    }
+    p = p->sommet_suivant; 
+  }
+
+  return;
+}
+
 int nombre_voisins(psommet_t s){
   int res = 0;
   parc_t l = s->liste_arcs;
@@ -455,7 +472,22 @@ int simple(pgraphe_t g, chemin_t c){
   }
   return 0;
 }
-int eulerien(pgraphe_t g, chemin_t c);
+int eulerien(pgraphe_t g, chemin_t c){
+  init_marqueur_arc(g);
+  int arcRencontres = 0;
+
+  parc_t arcs = c.liste_arcs;
+
+  while (arcs != NULL) {
+    if (arcs->marqueur == 0)
+    {
+      arcRencontres++;
+      arcs->marqueur = 1;
+    }
+    arcs = arcs->arc_suivant;
+  }
+  return arcRencontres == nombre_arcs(g) ? 1 : 0;
+}
 
 int hamiltonien(pgraphe_t g, chemin_t c){
   init_marqueur_sommet(g);

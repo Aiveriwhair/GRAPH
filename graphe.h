@@ -27,6 +27,7 @@ typedef struct a {
                   int         poids ; // poids de l arc
                   psommet_t   dest ;  // pointeur sommet destinataire
                   struct a *  arc_suivant ; // arc suivant
+                  int marqueur;
   
 } arc_t, *parc_t ;
 
