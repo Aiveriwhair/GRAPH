@@ -94,7 +94,6 @@ int eulerien(pgraphe_t g, chemin_t c);
 int hamiltonien(pgraphe_t g, chemin_t c);
 int graphe_eulerien(pgraphe_t g);
 int graphe_hamiltonien(pgraphe_t g);
-int excentricite1(pgraphe_t g, psommet_t x, psommet_t y);
-int excentricite2(pgraphe_t g, psommet_t n);
+int excentricite(pgraphe_t g, int n);
 int diametre(pgraphe_t g);
 int distance(pgraphe_t g, int x, int y);

@@ -528,5 +528,19 @@ int distance(pgraphe_t g, int x, int y){
 }
 
 
-int excentricite2(pgraphe_t g, psommet_t n);
+int excentricite(pgraphe_t g, int n){
+  /*
+    Renvoie la distance maximale entre n et tous les autres sommets du graphe
+  */
+  int max = 0;
+  algo_dijkstra(g, n);
+  psommet_t p = g;
+  while (p != NULL) {
+    if (p->distance > max) {
+      max = p->distance;
+    }
+    p = p->sommet_suivant;
+  }
+  return max;
+}
 int diametre(pgraphe_t g);
